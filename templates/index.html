@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildSmart - AI Construction Advisor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { text-align: center; font-size: 2.5rem; margin: 30px 0 10px; color: #f0a500; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 40px; }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        label { display: block; margin-bottom: 8px; color: #f0a500; font-weight: 600; }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        textarea { height: 100px; resize: vertical; }
+        input::placeholder, textarea::placeholder { color: #666; }
+        .get-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #f0a500, #e07b00);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .get-btn:hover { transform: scale(1.02); }
+        .get-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .loading { text-align: center; display: none; color: #f0a500; font-size: 1.1rem; margin: 20px 0; }
+        .tag {
+            display: inline-block;
+            background: #f0a500;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .result { display: none; margin-top: 10px; }
+        .section-card {
+            background: rgba(255,255,255,0.06);
+            border-left: 4px solid #f0a500;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+        .section-title { color: #f0a500; font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
+        .bullet-item {
+            padding: 6px 0 6px 12px;
+            color: #ddd;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            line-height: 1.6;
+        }
+        .bullet-item:last-child { border-bottom: none; }
+        .section-text { color: #ccc; line-height: 1.7; margin: 6px 0; }
+        .hint { font-size: 0.85rem; color: #888; margin-top: -15px; margin-bottom: 20px; }
+        .whatsapp-btn {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: transform 0.2s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.02); }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .grid-2 > div { display: flex; flex-direction: column; }
+        .grid-2 input, .grid-2 select { margin-bottom: 0; }
+        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ BuildSmart</h1>
+        <p class="subtitle">AI-powered construction advisor for every Indian family</p>
+
+        <div class="card">
+            <span class="tag">FREE • AI Powered • Made for India</span>
+
+            <div class="grid-2">
+                <div>
+                    <label>💰 Budget (in Rs)</label>
+                    <input type="number" id="budget" placeholder="e.g. 1500000" />
+                </div>
+                <div>
+                    <label>🚪 Number of Rooms</label>
+                    <input type="number" id="rooms" placeholder="e.g. 3" />
+                </div>
+                <div>
+                    <label>📐 Plot Size (sq ft)</label>
+                    <input type="number" id="plot_size" placeholder="e.g. 1000" />
+                </div>
+                <div>
+                    <label>🏢 Number of Floors</label>
+                    <select id="floors">
+                        <option value="1">1 Floor (Single Storey)</option>
+                        <option value="2">2 Floors</option>
+                        <option value="3">3 Floors</option>
+                        <option value="3+">3+ Floors (Commercial)</option>
+                    </select>
+                </div>
+            </div>
+
+            <label style="margin-top:16px">📍 Your Location</label>
+            <input type="text" id="location" placeholder="e.g. Goa, Mumbai, Delhi, Dehradun" />
+
+            <div class="grid-2">
+                <div>
+                    <label>🏠 Construction Type</label>
+                    <select id="construction_type">
+                        <option value="basic">Basic (Budget-friendly)</option>
+                        <option value="standard" selected>Standard (Most popular)</option>
+                        <option value="premium">Premium (High quality)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>👷 Who will build?</label>
+                    <select id="build_type">
+                        <option value="not sure">Not Sure (Show Both)</option>
+                        <option value="contractor">Hire Contractor</option>
+                        <option value="self">Self Construction</option>
+                    </select>
+                </div>
+            </div>
+
+            <label style="margin-top:16px">✨ Special Requirements</label>
+            <textarea id="features" placeholder="Whatever feature you want mention it ... e.g. balcony , 2 bathrooms, pooja room, terrace, modular kitchen, parking, garden, lift..."></textarea>
+            <p class="hint">💡 The better you fill, more better you will get estimate!</p>
+
+            <label>🌐 Language / भाषा</label>
+            <select id="language">
+                <option value="english">English</option>
+                <option value="hindi">Hindi (हिंदी)</option>
+            </select>
+
+            <button class="get-btn" onclick="getEstimate()" id="btn">
+                ✨ Get AI Estimate
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            🤖 AI is analyzing your requirements...
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <button class="whatsapp-btn" id="whatsapp-btn" onclick="shareOnWhatsApp()">
+            📱 Share on WhatsApp
+        </button>
+    </div>
+
+    <script>
+        async function getEstimate() {
+            const budget = document.getElementById('budget').value;
+            const rooms = document.getElementById('rooms').value;
+            const location = document.getElementById('location').value;
+            const construction_type = document.getElementById('construction_type').value;
+            const plot_size = document.getElementById('plot_size').value;
+            const language = document.getElementById('language').value;
+            const build_type = document.getElementById('build_type').value;
+            const features = document.getElementById('features').value;
+            const floors = document.getElementById('floors').value;
+
+            if (!budget || !rooms || !location) {
+                alert('Please fill Budget, Rooms and Location!');
+                return;
+            }
+
+            const btn = document.getElementById('btn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const waBtn = document.getElementById('whatsapp-btn');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Analyzing...';
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            waBtn.style.display = 'none';
+
+            try {
+                const response = await fetch('/estimate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        budget, rooms, location,
+                        construction_type, plot_size,
+                        language, build_type,
+                        features, floors
+                    })
+                });
+
+                const data = await response.json();
+
+                let formatted = data.result
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .split('\n')
+                    .map(line => {
+                        line = line.trim();
+                        if (/^\d\.\s[A-Z]/.test(line)) {
+                            const colonIndex = line.indexOf(':');
+                            const title = line.substring(0, colonIndex + 1);
+                            const rest = line.substring(colonIndex + 1).trim();
+                            return `</div><div class="section-card"><h3 class="section-title">${title}</h3>${rest ? `<p class="section-text">${rest}</p>` : ''}`;
+                        } else if (line.startsWith('•')) {
+                            return `<div class="bullet-item">${line}</div>`;
+                        } else if (line === '') {
+                            return '';
+                        } else {
+                            return `<p class="section-text">${line}</p>`;
+                        }
+                    })
+                    .join('');
+
+                result.style.display = 'block';
+                result.innerHTML = '<div class="section-card">' + formatted + '</div>';
+                waBtn.style.display = 'block';
+
+            } catch (err) {
+                result.style.display = 'block';
+                result.innerHTML = '<div class="section-card"><p class="section-text">⚠️ Error! Please try again.</p></div>';
+            }
+
+            btn.disabled = false;
+            btn.textContent = '✨ Get AI Estimate';
+            loading.style.display = 'none';
+        }
+
+        function shareOnWhatsApp() {
+            const result = document.getElementById('result').innerText;
+            const msg = encodeURIComponent("🏗️ BuildSmart AI Estimate:\n\n" + result);
+            window.open(`https://wa.me/?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
