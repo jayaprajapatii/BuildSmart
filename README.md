@@ -1,5 +1,6 @@
 
 # BuildSmart — AI Construction Advisor 
+ [Live Demo → buildsmart-cnwz.onrender.com](https://buildsmart-cnwz.onrender.com)
 
 ### The Problem
 
