@@ -10,13 +10,13 @@ There was no free, intelligent tool that could give a common realistic construct
 
 ---
 
-## What is BuildSmart?
+## What is BuildSmart ?
 
 BuildSmart is an AI-powered construction advisor that acts as a virtual architect. Enter your budget, location, plot size, and requirements — and get a complete, detailed construction estimate in seconds for Free in both language Hindi or English.
 
 ---
 
-## Why we built this
+## Why we built this ?
 
 - sees this problem  — during construction families losing lakhs due to lack of information
 - Tier 2 and tier 3 cities have zero access to affordable construction guidance
@@ -25,7 +25,7 @@ BuildSmart is an AI-powered construction advisor that acts as a virtual architec
 
 ---
 
-## What it does
+## What it does ?
 
 **Smart Cost Estimation:**
 Gives a detailed breakdown of material, labour, and finishing costs — specific to your city and budget. Not a generic calculator, but an intelligent estimate that understands context.
