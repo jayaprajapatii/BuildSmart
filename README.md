@@ -4,7 +4,7 @@
 
 ### The Problem
 
-Most Indian families spend their life savings building a home, often without proper cost planning or expert guidance. Architects charge lakhs. Contractors mislead. Material prices vary by location. Most families end up overspending by 20–40% or getting cheated.
+Most families spend their life savings building a home, often without proper cost planning or expert guidance. Architects charge lakhs. Contractors mislead. Material prices vary by location. Most families end up overspending by 20–40% or getting cheated.
 
 There was no free, intelligent tool that could give a common realistic construction estimate — BuildSmart fixes that now.
 
