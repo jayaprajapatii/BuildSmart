@@ -64,7 +64,7 @@ Share your complete estimate with family members instantly with one click.
 ## Run Locally
 
 ```bash
-git clone https://github.com/jayaprajapatii/BuildSmart.git
+git clone <repository_url>
 cd BuildSmart
 pip install flask groq python-dotenv
 ```
