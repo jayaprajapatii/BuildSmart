@@ -43,6 +43,7 @@ BuildSmart/
 │   └── index.html      # Frontend UI
 └── .env                # API key 
 ```
+---
 
 ## Run Locally
 
